@@ -66,8 +66,8 @@
                     <div class="book-title">${escapeHtml(book.title)}</div>
                     <div class="book-author">${escapeHtml(book.author)}</div>
                     <div style="margin-top: 0.5rem;">
-                        <button class="btn btn-outline" onclick="editBook(${book.id})">✏️</button>
-                        <button class="btn btn-danger" onclick="deleteBook(${book.id})">🗑️</button>
+                        <button class="btn btn-outline" onclick="editBook(${book.id})">Изменить</button>
+                        <button class="btn btn-danger" onclick="deleteBook(${book.id})">Удалить</button>
                     </div>
                 </div>
             </div>

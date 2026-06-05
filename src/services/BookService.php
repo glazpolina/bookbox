@@ -10,9 +10,13 @@ class BookService
         $this->bookRepo = new BookRepository();
     }
 
-    public function getAll()
+    // public function getAll()
+    // {
+    //     return $this->bookRepo->getAll();
+    // }
+    public function getAll($genreId = null, $search = null)
     {
-        return $this->bookRepo->getAll();
+        return $this->bookRepo->getAll($genreId, $search);
     }
 
     public function getOne($id)
@@ -85,6 +89,23 @@ class BookService
         }
 
         $this->bookRepo->updateCover($id, $coverPath);
+        return ['success' => true];
+    }
+    public function getGenres()
+    {
+        return $this->bookRepo->getGenres();
+    }
+    public function getGenresForBook($bookId)
+    {
+        return $this->bookRepo->getGenresForBook($bookId);
+    }
+
+    public function setGenres($bookId, $genreIds, $user)
+    {
+        if ($user['role'] !== 'admin') {
+            return ['success' => false, 'errors' => ['Forbidden'], 'status' => 403];
+        }
+        $this->bookRepo->setGenres($bookId, $genreIds);
         return ['success' => true];
     }
 }

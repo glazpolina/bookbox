@@ -10,9 +10,17 @@ class BookController
         $this->service = new BookService();
     }
 
+    // public function getAll()
+    // {
+    //     $books = $this->service->getAll();
+    //     header('Content-Type: application/json; charset=utf-8');
+    //     echo json_encode($books, JSON_UNESCAPED_UNICODE);
+    // }
     public function getAll()
     {
-        $books = $this->service->getAll();
+        $genreId = $_GET['genre'] ?? null;
+        $search = $_GET['search'] ?? null;
+        $books = $this->service->getAll($genreId, $search);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($books, JSON_UNESCAPED_UNICODE);
     }
@@ -95,5 +103,26 @@ class BookController
             http_response_code(500);
             echo json_encode(['error' => 'Failed to save file']);
         }
+    }
+    public function getGenres()
+    {
+        $genres = $this->service->getGenres();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($genres, JSON_UNESCAPED_UNICODE);
+    }
+    public function getGenresForBook($id)
+    {
+        $genres = $this->service->getGenresForBook($id);
+        echo json_encode($genres, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function setGenres($id)
+    {
+        $user = Auth::requireAdmin();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $genreIds = $data['genres'] ?? [];
+        $result = $this->service->setGenres($id, $genreIds, $user);
+        http_response_code($result['status']);
+        echo json_encode($result['success'] ? ['message' => 'Genres updated'] : ['error' => $result['errors'][0]]);
     }
 }

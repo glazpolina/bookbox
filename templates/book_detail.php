@@ -54,7 +54,7 @@
                     <div class="book-detail-author">${escapeHtml(book.author)}</div>
                     <div class="book-detail-year">${book.year || 'Год не указан'}</div>
                     <div class="book-detail-description">${escapeHtml(book.description || 'Нет описания')}</div>
-                    <div class="book-rating">Средний рейтинг: ${renderStars(book.calculated_rating)} (${book.calculated_rating})</div>
+                    <div class="book-rating">Средний рейтинг: ${renderStars(book.calculated_rating)} (${parseFloat(book.calculated_rating).toFixed(2)})</div>
                 </div>
             </div>
         `;
@@ -156,8 +156,8 @@
     function renderStars(rating) {
         const full = Math.floor(rating);
         let stars = '';
-        for (let i = 0; i < full; i++) stars += '★';
-        for (let i = stars.length; i < 5; i++) stars += '☆';
+        for (let i = 0; i < full; i++) stars += '&#9733;';
+        for (let i = stars.length; i < 5; i++) stars += '&#9734;';
         return stars;
     }
 

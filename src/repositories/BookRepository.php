@@ -9,12 +9,61 @@ class BookRepository
     {
         $this->db = Database::getConnection();
     }
-
     public function getAll()
     {
-        $stmt = $this->db->query("SELECT * FROM v_books_with_rating ORDER BY id");
+        $sql = "SELECT 
+                b.*, 
+                COALESCE(AVG(r.rating), 0) AS calculated_rating, 
+                COUNT(r.id) AS reviews_count
+            FROM books b
+            LEFT JOIN reviews r ON b.id = r.book_id
+            GROUP BY b.id
+            ORDER BY calculated_rating DESC, b.id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    // public function getAll()
+    // {
+    //     $stmt = $this->db->query("SELECT * FROM v_books_with_rating ORDER BY id");
+    //     return $stmt->fetchAll();
+    // }
+    // public function getAll($genreId = null, $search = null)
+    // {
+    //     $sql = "SELECT DISTINCT 
+    //             b.*, 
+    //             COALESCE(AVG(r.rating), 0) AS calculated_rating, 
+    //             COUNT(DISTINCT r.id) AS reviews_count
+    //         FROM books b
+    //         LEFT JOIN reviews r ON b.id = r.book_id
+    //         LEFT JOIN book_genres bg ON b.id = bg.book_id";
+
+    //     $conditions = [];
+    //     $params = [];
+
+    //     if ($genreId && $genreId !== '') {
+    //         $conditions[] = "bg.genre_id = ?";
+    //         $params[] = $genreId;
+    //     }
+
+    //     if ($search && $search !== '') {
+    //         $conditions[] = "(b.title LIKE ? OR b.author LIKE ?)";
+    //         $params[] = "%$search%";
+    //         $params[] = "%$search%";
+    //     }
+
+    //     if (!empty($conditions)) {
+    //         $sql .= " WHERE " . implode(" AND ", $conditions);
+    //     }
+
+    //     $sql .= " GROUP BY b.id ORDER BY b.id";
+
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->execute($params);
+    //     return $stmt->fetchAll();
+    // }
 
     public function getById($id)
     {
@@ -47,5 +96,33 @@ class BookRepository
     {
         $stmt = $this->db->prepare("UPDATE books SET cover_image = ? WHERE id = ?");
         $stmt->execute([$coverPath, $id]);
+    }
+    public function getGenres()
+    {
+        $stmt = $this->db->query("SELECT id, name FROM genres ORDER BY name");
+        return $stmt->fetchAll();
+    }
+    public function getGenresForBook($bookId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT g.id, g.name 
+        FROM genres g 
+        JOIN book_genres bg ON g.id = bg.genre_id 
+        WHERE bg.book_id = ?
+        ORDER BY g.name
+    ");
+        $stmt->execute([$bookId]);
+        return $stmt->fetchAll();
+    }
+
+    public function setGenres($bookId, $genreIds)
+    {
+        $stmt = $this->db->prepare("DELETE FROM book_genres WHERE book_id = ?");
+        $stmt->execute([$bookId]);
+
+        foreach ($genreIds as $genreId) {
+            $stmt = $this->db->prepare("INSERT INTO book_genres (book_id, genre_id) VALUES (?, ?)");
+            $stmt->execute([$bookId, $genreId]);
+        }
     }
 }

@@ -121,7 +121,25 @@ if ($method === 'POST' && preg_match('#^api/books/(\d+)/upload$#', $route, $matc
     $controller->uploadCover($matches[1]);
     exit;
 }
+// GET /api/genres
+if ($method === 'GET' && $route === 'api/genres') {
+    $controller = new BookController();
+    $controller->getGenres();
+    exit;
+}
+// GET /api/books/:id/genres
+if ($method === 'GET' && preg_match('#^api/books/(\d+)/genres$#', $route, $matches)) {
+    $controller = new BookController();
+    $controller->getGenresForBook($matches[1]);
+    exit;
+}
 
+// PUT /api/books/:id/genres
+if ($method === 'PUT' && preg_match('#^api/books/(\d+)/genres$#', $route, $matches)) {
+    $controller = new BookController();
+    $controller->setGenres($matches[1]);
+    exit;
+}
 $pageController = new PageController();
 
 if ($route === '' || $route === '/') {
