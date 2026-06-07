@@ -1,6 +1,4 @@
 <?php
-// src/controllers/ReviewController.php
-
 class ReviewController
 {
     private $service;

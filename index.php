@@ -1,6 +1,4 @@
 <?php
-// index.php
-
 require_once __DIR__ . '/src/core/Database.php';
 require_once __DIR__ . '/src/core/JWT.php';
 require_once __DIR__ . '/src/core/Auth.php';
@@ -34,112 +32,102 @@ if (isset($_GET['route'])) {
     $route = trim($route, '/');
 }
 
-//POST /api/auth/login
 if ($method === 'POST' && ($route === 'api/auth/login' || $uri === '/bookbox/api/auth/login')) {
     $controller = new AuthController();
     $controller->login();
     exit;
 }
 
-//POST /api/auth/register
 if ($method === 'POST' && ($route === 'api/auth/register' || $uri === '/bookbox/api/auth/register')) {
     $controller = new AuthController();
     $controller->register();
     exit;
 }
 
-//GET /api/auth/me
 if ($method === 'GET' && ($route === 'api/auth/me' || $uri === '/bookbox/api/auth/me')) {
     $controller = new AuthController();
     $controller->me();
     exit;
 }
 
-//GET /api/books
 if ($method === 'GET' && ($route === 'api/books' || $uri === '/bookbox/api/books')) {
     $controller = new BookController();
     $controller->getAll();
     exit;
 }
 
-//GET /api/books/:id
 if ($method === 'GET' && preg_match('#^api/books/(\d+)$#', $route, $matches)) {
     $controller = new BookController();
     $controller->getOne($matches[1]);
     exit;
 }
+
 if ($method === 'GET' && preg_match('#^/bookbox/api/books/(\d+)$#', $uri, $matches)) {
     $controller = new BookController();
     $controller->getOne($matches[1]);
     exit;
 }
 
-//POST /api/books
 if ($method === 'POST' && ($route === 'api/books' || $uri === '/bookbox/api/books')) {
     $controller = new BookController();
     $controller->create();
     exit;
 }
 
-//PUT /api/books/:id
 if ($method === 'PUT' && preg_match('#^api/books/(\d+)$#', $route, $matches)) {
     $controller = new BookController();
     $controller->update($matches[1]);
     exit;
 }
 
-//DELETE /api/books/:id
 if ($method === 'DELETE' && preg_match('#^api/books/(\d+)$#', $route, $matches)) {
     $controller = new BookController();
     $controller->delete($matches[1]);
     exit;
 }
 
-//GET /api/books/:id/reviews
 if ($method === 'GET' && preg_match('#^api/books/(\d+)/reviews$#', $route, $matches)) {
     $controller = new ReviewController();
     $controller->getByBook($matches[1]);
     exit;
 }
 
-//POST /api/reviews
 if ($method === 'POST' && ($route === 'api/reviews' || $uri === '/bookbox/api/reviews')) {
     $controller = new ReviewController();
     $controller->create();
     exit;
 }
 
-//DELETE /api/reviews/:id
 if ($method === 'DELETE' && preg_match('#^api/reviews/(\d+)$#', $route, $matches)) {
     $controller = new ReviewController();
     $controller->delete($matches[1]);
     exit;
 }
-//POST /api/books/:id/upload (загрузка обложки)
+//POST /api/books/:id/upload загрузка обложки
 if ($method === 'POST' && preg_match('#^api/books/(\d+)/upload$#', $route, $matches)) {
     $controller = new BookController();
     $controller->uploadCover($matches[1]);
     exit;
 }
-// GET /api/genres
+
 if ($method === 'GET' && $route === 'api/genres') {
     $controller = new BookController();
     $controller->getGenres();
     exit;
 }
-// GET /api/books/:id/genres
+
 if ($method === 'GET' && preg_match('#^api/books/(\d+)/genres$#', $route, $matches)) {
     $controller = new BookController();
     $controller->getGenresForBook($matches[1]);
     exit;
 }
 
-// PUT /api/books/:id/genres
 if ($method === 'PUT' && preg_match('#^api/books/(\d+)/genres$#', $route, $matches)) {
     $controller = new BookController();
     $controller->setGenres($matches[1]);
     exit;
 }
+
 $pageController = new PageController();
 
 if ($route === '' || $route === '/') {

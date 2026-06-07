@@ -1,5 +1,3 @@
-// public/js/app.js
-
 const basePath = '/bookbox';
 
 function getToken() {

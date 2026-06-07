@@ -1,6 +1,4 @@
 <?php
-// src/core/Database.php
-
 class Database
 {
     private static $connection = null;

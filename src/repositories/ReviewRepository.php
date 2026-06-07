@@ -1,6 +1,4 @@
 <?php
-// src/repositories/ReviewRepository.php
-
 class ReviewRepository
 {
     private $db;

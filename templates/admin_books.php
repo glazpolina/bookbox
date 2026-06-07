@@ -28,7 +28,7 @@
             <div class="form-group">
                 <label>Обложка (загрузить файл)</label>
                 <input type="file" name="cover_file" id="coverFile" accept="image/*">
-                <small style="color: #888;">Поддерживаются JPG, PNG, WEBP, GIF (макс 2MB)</small>
+                <small style="color: rgb(136, 136, 136);">Поддерживаются JPG, PNG, WEBP, GIF (макс 2MB)</small>
             </div>
             <div class="form-group" id="currentCoverGroup" style="display:none;">
                 <label>Текущая обложка</label>
@@ -52,7 +52,6 @@
     async function loadBooks() {
         const response = await fetch('/bookbox/api/books');
         const books = await response.json();
-
         const grid = document.getElementById('books-grid');
         grid.innerHTML = books.map(book => `
             <div class="book-card">
@@ -87,7 +86,6 @@
     async function editBook(id) {
         const response = await fetch(`/bookbox/api/books/${id}`);
         const book = await response.json();
-
         document.getElementById('modal-title').textContent = 'Редактировать книгу';
         document.getElementById('bookId').value = book.id;
         document.querySelector('[name="title"]').value = book.title || '';
@@ -96,7 +94,6 @@
         document.querySelector('[name="description"]').value = book.description || '';
         document.getElementById('cover_image').value = book.cover_image || '';
 
-        // Показываем текущую обложку, если есть
         const currentCoverGroup = document.getElementById('currentCoverGroup');
         const currentCover = document.getElementById('currentCover');
         if (book.cover_image) {

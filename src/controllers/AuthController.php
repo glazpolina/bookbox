@@ -1,6 +1,4 @@
 <?php
-// src/controllers/AuthController.php
-
 class AuthController
 {
     private $service;

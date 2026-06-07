@@ -1,6 +1,4 @@
 <?php
-// src/schemas/UserSchema.php
-
 class UserSchema
 {
     public static function validateRegister($data)

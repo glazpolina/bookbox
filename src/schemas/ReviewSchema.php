@@ -1,6 +1,4 @@
 <?php
-// src/schemas/ReviewSchema.php
-
 class ReviewSchema
 {
     public static function validate($data)
@@ -16,7 +14,6 @@ class ReviewSchema
         if (empty($data['review_text'])) {
             $errors[] = 'Review text is required';
         }
-
         return $errors;
     }
 }

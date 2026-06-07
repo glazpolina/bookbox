@@ -1,6 +1,4 @@
 <?php
-// src/services/BookService.php
-
 class BookService
 {
     private $bookRepo;

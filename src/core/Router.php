@@ -1,6 +1,4 @@
 <?php
-// src/core/Router.php
-
 class Router
 {
     private $routes = [];
@@ -32,7 +30,6 @@ class Router
         $uri = str_replace('/bookbox', '', $uri);
         $uri = rtrim($uri, '/');
         if ($uri === '') $uri = '/';
-
         foreach ($this->routes[$method] ?? [] as $routePath => $handler) {
             $pattern = preg_replace('/:([a-zA-Z0-9_]+)/', '([^/]+)', $routePath);
             $pattern = '#^' . $pattern . '$#';
@@ -55,7 +52,6 @@ class Router
                 return;
             }
         }
-
         http_response_code(404);
         echo json_encode(['error' => 'Route not found']);
     }

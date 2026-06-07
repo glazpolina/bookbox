@@ -1,6 +1,4 @@
 <?php
-// src/controllers/BookController.php
-
 class BookController
 {
     private $service;
@@ -9,7 +7,6 @@ class BookController
     {
         $this->service = new BookService();
     }
-
     // public function getAll()
     // {
     //     $books = $this->service->getAll();

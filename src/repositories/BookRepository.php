@@ -1,6 +1,4 @@
 <?php
-// src/repositories/BookRepository.php
-
 class BookRepository
 {
     private $db;
@@ -39,27 +37,21 @@ class BookRepository
     //         FROM books b
     //         LEFT JOIN reviews r ON b.id = r.book_id
     //         LEFT JOIN book_genres bg ON b.id = bg.book_id";
-
     //     $conditions = [];
     //     $params = [];
-
     //     if ($genreId && $genreId !== '') {
     //         $conditions[] = "bg.genre_id = ?";
     //         $params[] = $genreId;
     //     }
-
     //     if ($search && $search !== '') {
     //         $conditions[] = "(b.title LIKE ? OR b.author LIKE ?)";
     //         $params[] = "%$search%";
     //         $params[] = "%$search%";
     //     }
-
     //     if (!empty($conditions)) {
     //         $sql .= " WHERE " . implode(" AND ", $conditions);
     //     }
-
     //     $sql .= " GROUP BY b.id ORDER BY b.id";
-
     //     $stmt = $this->db->prepare($sql);
     //     $stmt->execute($params);
     //     return $stmt->fetchAll();

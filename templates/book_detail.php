@@ -43,7 +43,7 @@
 
         document.getElementById('book-detail').innerHTML = `
             <div class="book-detail">
-                <div class="book-detail-cover" style="background: #3a3a3a; min-height:400px; display:flex; align-items:center; justify-content:center;">
+                <div class="book-detail-cover" style="background: rgb(58, 58, 58); min-height:400px; display:flex; align-items:center; justify-content:center;">
     ${book.cover_image ? 
         `<img src="/bookbox/public/${book.cover_image}" style="width:100%; border-radius:12px; object-fit:cover;">` : 
         ' '

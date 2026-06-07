@@ -1,6 +1,4 @@
 <?php
-// src/controllers/PageController.php
-
 class PageController
 {
 

@@ -1,5 +1,5 @@
 <h2>Мой профиль</h2>
-<div id="profile-info" style="background: #2a2a2a; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+<div id="profile-info" style="background: rgb(42, 42, 42); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
 </div>
 
 <h3>Мои отзывы и оценки</h3>
@@ -57,7 +57,7 @@
         <div class="review" style="cursor: pointer;" onclick="location.href='/bookbox/book/${review.book_id}'">
             <div class="review-header">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="width: 50px; height: 70px; background: #3a3a3a; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <div style="width: 50px; height: 70px; background: rgb(58, 58, 58); border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         ${review.book_cover ? 
                             `<img src="/bookbox/public/${review.book_cover}" style="width:100%; height:100%; object-fit:cover;">` : 
                             ' '

@@ -1,6 +1,4 @@
 <?php
-// src/repositories/UserRepository.php
-
 class UserRepository
 {
     private $db;

@@ -1,6 +1,4 @@
 <?php
-// src/services/AuthService.php
-
 class AuthService
 {
     private $userRepo;

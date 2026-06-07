@@ -1,6 +1,4 @@
 <?php
-// src/core/JWT.php
-
 class JWT
 {
     private static $secret = 'bookbox-secret-key-2026';

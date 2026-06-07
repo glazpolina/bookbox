@@ -1,6 +1,4 @@
 <?php
-// src/core/Auth.php
-
 class Auth
 {
     public static function requireAuth()
